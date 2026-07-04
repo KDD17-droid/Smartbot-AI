@@ -6,6 +6,22 @@ const { AzureOpenAI } = require("openai");
 
 dotenv.config();
 
+const requiredEnvVars = [
+  "AZURE_OPENAI_ENDPOINT",
+  "AZURE_OPENAI_KEY",
+  "AZURE_OPENAI_API_VERSION",
+  "AZURE_OPENAI_DEPLOYMENT_NAME",
+];
+
+const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
+
+if (missingEnvVars.length > 0) {
+  console.error(
+    `Missing required environment variables: ${missingEnvVars.join(", ")}`,
+  );
+  process.exit(1);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -60,6 +76,12 @@ app.post("/api/chat", async (req, res) => {
       reply: response.choices[0].message.content,
     });
   } catch (error) {
+    console.error("Azure OpenAI chat error:", {
+      message: error.message,
+      status: error.status,
+      code: error.code,
+      type: error.type,
+    });
     res.status(500).json({
       error: "Something went wrong. Please try again.",
     });

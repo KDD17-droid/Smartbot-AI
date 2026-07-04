@@ -44,8 +44,20 @@ async function sendMessage() {
     // Remove loading message
     chatBox.removeChild(loadingMsg);
 
-    if (data.reply) {
-      addMessage(data.reply, "bot");
+    if (!response.ok) {
+      addMessage(
+        data.error || "Sorry, something went wrong. Please try again.",
+        "bot",
+      );
+      return;
+    }
+
+    if (typeof data.reply === "string") {
+      addMessage(
+        data.reply.trim() ||
+          "I do not have enough information to answer that yet.",
+        "bot",
+      );
     } else {
       addMessage("Sorry, something went wrong. Please try again.", "bot");
     }
