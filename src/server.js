@@ -56,24 +56,66 @@ const client = new AzureOpenAI({
   deployment: process.env.AZURE_OPENAI_DEPLOYMENT_NAME,
 });
 
+function getTextFromMessageContent(content) {
+  if (typeof content === "string") return content.trim();
+
+  if (Array.isArray(content)) {
+    return content
+      .map((item) => (item?.type === "text" ? item.text : ""))
+      .join(" ")
+      .trim();
+  }
+
+  return "";
+}
+
+async function createChatCompletion(messages, maxCompletionTokens) {
+  return client.chat.completions.create({
+    messages,
+    max_completion_tokens: maxCompletionTokens,
+  });
+}
+
 // Smartbot-AI endpoint
 app.post("/api/chat", async (req, res) => {
   const { message, systemPrompt } = req.body;
 
-  try {
-    const response = await client.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: systemPrompt || "You are a helpful FAQ assistant.",
-        },
-        { role: "user", content: message },
-      ],
-      max_completion_tokens: 500,
+  if (!message || !String(message).trim()) {
+    return res.status(400).json({
+      error: "Please enter a question.",
     });
+  }
+
+  const messages = [
+    {
+      role: "system",
+      content: systemPrompt || "You are a helpful FAQ assistant.",
+    },
+    { role: "user", content: message },
+  ];
+
+  try {
+    let response = await createChatCompletion(messages, 1500);
+    let reply = getTextFromMessageContent(
+      response?.choices?.[0]?.message?.content,
+    );
+    const finishReason = response?.choices?.[0]?.finish_reason;
+
+    if (!reply || finishReason === "length") {
+      response = await createChatCompletion(messages, 2500);
+      reply = getTextFromMessageContent(
+        response?.choices?.[0]?.message?.content,
+      );
+    }
+
+    if (!reply) {
+      return res.status(502).json({
+        error: "The model returned an empty response. Please try again.",
+      });
+    }
 
     res.json({
-      reply: response.choices[0].message.content,
+      reply,
     });
   } catch (error) {
     console.error("Azure OpenAI chat error:", {
