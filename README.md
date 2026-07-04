@@ -1,8 +1,8 @@
-# FAQBot 🤖
+# Smartbot-AI 🤖
 
 Ask it anything. It only answers what you tell it to.
 
-FAQBot is a smart FAQ assistant built on Azure OpenAI. Give it a system prompt, define its scope, and it answers questions within that context only. 
+Smartbot-AI is a smart FAQ assistant built on Azure OpenAI. Give it a system prompt, define its scope, and it answers questions within that context only.
 
 ---
 
@@ -26,7 +26,7 @@ FAQBot is a smart FAQ assistant built on Azure OpenAI. Give it a system prompt, 
 
 ```
 git clone https://github.com/saishagoel27/FAQ-Bot
-cd FAQBot
+cd Smartbot-AI
 npm install
 ```
 

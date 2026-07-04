@@ -67,5 +67,5 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`FAQBot running at http://localhost:${PORT}`);
+  console.log(`Smartbot-AI running at http://localhost:${PORT}`);
 });

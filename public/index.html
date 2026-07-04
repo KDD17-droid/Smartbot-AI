@@ -1,35 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQBot - Smart FAQ Assistant</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smartbot-AI - Smart FAQ Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1> FAQBot </h1>
-        <p class="subtitle">Powered by Azure OpenAI</p>
+      <h1>Smartbot-AI</h1>
+      <p class="subtitle">Powered by Azure OpenAI</p>
 
-        <!-- System Prompt Section -->
-        <div class="card">
-            <h2>System Prompt</h2>
-            <p>Tell the bot who it is and what it knows</p>
-            <textarea id="systemPrompt" placeholder="Example: You are a helpful assistant for Amity University. You answer questions about admissions, fees, and courses only.">You are a helpful FAQ assistant for Amity University. You only answer questions related to admissions, fees, courses, and campus life. If asked anything outside this scope, politely decline.</textarea>
-        </div>
+      <!-- System Prompt Section -->
+      <div class="card">
+        <h2>System Prompt</h2>
+        <p>Tell the bot who it is and what it knows</p>
+        <textarea
+          id="systemPrompt"
+          placeholder="Example: You are a helpful assistant for Amity University. You answer questions about admissions, fees, and courses only."
+        >
+You are a helpful FAQ assistant for Amity University. You only answer questions related to admissions, fees, courses, and campus life. If asked anything outside this scope, politely decline.</textarea
+        >
+      </div>
 
-        <!-- Chat Section -->
-        <div class="card">
-            <h2>Ask a Question</h2>
-            <div id="chatBox" class="chat-box">
-                <div class="message bot"> Hi! I am FAQBot. Ask me anything!</div>
-            </div>
-            <div class="input-row">
-                <input type="text" id="userInput" placeholder="Type your question here..." />
-                <button id="sendBtn">Send</button>
-            </div>
+      <!-- Chat Section -->
+      <div class="card">
+        <h2>Ask a Question</h2>
+        <div id="chatBox" class="chat-box">
+          <div class="message bot">Hi! I am Smartbot-AI. Ask me anything!</div>
         </div>
+        <div class="input-row">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Type your question here..."
+          />
+          <button id="sendBtn">Send</button>
+        </div>
+      </div>
     </div>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
