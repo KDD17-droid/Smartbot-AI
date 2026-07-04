@@ -37,7 +37,7 @@ const client = new AzureOpenAI({
   endpoint: process.env.AZURE_OPENAI_ENDPOINT,
   apiKey: process.env.AZURE_OPENAI_KEY,
   apiVersion: process.env.AZURE_OPENAI_API_VERSION,
-  deployment: process.env.AZURE_OPENAI_DEPLOYMENT,
+  deployment: process.env.AZURE_OPENAI_DEPLOYMENT_NAME,
 });
 
 // Smartbot-AI endpoint
